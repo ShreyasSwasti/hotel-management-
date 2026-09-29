@@ -13,15 +13,18 @@ public class HotelReservationSystem {
         scanner = new Scanner(System.in);
     }
 
-    public void showMenu() {
-        System.out.println("\n=== HOTEL ROOM RESERVATION SYSTEM ===");
-        System.out.println("1. Add Customer");
-        System.out.println("2. View Available Rooms");
-        System.out.println("3. Reserve Room");
-        System.out.println("4. View Reservation Summary");
-        System.out.println("5. Exit");
-        System.out.print("Enter Choice: ");
-    }
+   public void showMenu() {
+    System.out.println("\n========================================");
+    System.out.println("       HOTEL RESERVATION SYSTEM");
+    System.out.println("========================================");
+    System.out.println("1. Add Customer");
+    System.out.println("2. View Available Rooms");
+    System.out.println("3. Reserve Room");
+    System.out.println("4. View Reservation Summary");
+    System.out.println("5. Exit");
+    System.out.println("========================================");
+    System.out.print("Enter Choice: ");
+}
 
     public void handleMenuChoice(int choice) {
         try {
