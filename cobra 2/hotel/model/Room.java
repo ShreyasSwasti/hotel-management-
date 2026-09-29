@@ -34,7 +34,10 @@ public class Room {
     }
 
     @Override
-    public String toString() {
-        return "Room " + roomNumber + " [" + roomType + "] - Price: $" + pricePerDay + " - Available: " + isAvailable;
-    }
+public String toString() {
+    return "Room " + roomNumber
+            + " | Type: " + roomType
+            + " | Price: ₹" + pricePerDay + "/day"
+            + " | Available: " + (isAvailable ? "Yes" : "No");
+}
 }
