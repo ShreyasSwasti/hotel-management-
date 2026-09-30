@@ -26,17 +26,19 @@ public class ReservationService {
         rooms.add(new Room(301, RoomType.SUITE, 5000.0));
     }
 
-    public void addCustomer(Scanner scanner) {
-        try {
-            Customer customer = new Customer();
-            customer.inputCustomerDetails(scanner);
-            customers.add(customer);
-            System.out.println("Customer added successfully!");
-        } catch (Exception e) {
-            System.out.println("Error adding customer: " + e.getMessage());
-            scanner.nextLine(); // clear buffer if needed
-        }
+    public void addCustomer(Scanner scanner) throws InvalidInputException {
+    Customer customer = new Customer();
+    customer.inputCustomerDetails(scanner);
+
+    if (findCustomer(customer.getId()) != null) {
+        throw new InvalidInputException(
+                "Customer ID already exists. Please use a different ID."
+        );
     }
+
+    customers.add(customer);
+    System.out.println("Customer added successfully!");
+}
 
     public void viewAvailableRooms() {
         System.out.println("\nAvailable Rooms:");
