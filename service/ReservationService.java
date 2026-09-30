@@ -41,51 +41,106 @@ public class ReservationService {
     public void viewAvailableRooms() {
         System.out.println("\nAvailable Rooms:");
         boolean found = false;
+
         for (Room room : rooms) {
             if (room.isAvailable()) {
                 System.out.println(room);
                 found = true;
             }
         }
-        if (!found) System.out.println("No rooms available.");
+
+        if (!found) {
+            System.out.println("No rooms available.");
+        }
+    }
+
+    // View available rooms filtered by room type
+    public void viewAvailableRoomsByType(Scanner scanner) throws InvalidInputException {
+        System.out.print("Enter Room Type (STANDARD, DELUXE, SUITE): ");
+        String input = scanner.next().toUpperCase();
+
+        RoomType selectedType;
+
+        try {
+            selectedType = RoomType.valueOf(input);
+        } catch (IllegalArgumentException e) {
+            throw new InvalidInputException(
+                    "Invalid room type. Please choose STANDARD, DELUXE, or SUITE."
+            );
+        }
+
+        System.out.println("\nAvailable " + selectedType + " Rooms:");
+        boolean found = false;
+
+        for (Room room : rooms) {
+            if (room.isAvailable() && room.getRoomType() == selectedType) {
+                System.out.println(room);
+                found = true;
+            }
+        }
+
+        if (!found) {
+            System.out.println("No available " + selectedType + " rooms.");
+        }
     }
 
     public void reserveRoom(Scanner scanner) throws InvalidInputException {
         System.out.print("Enter Customer ID: ");
+
         if (!scanner.hasNextInt()) {
             String invalid = scanner.next();
-            throw new InvalidInputException("Customer ID must be numeric (You entered: " + invalid + ")");
+            throw new InvalidInputException(
+                    "Customer ID must be numeric (You entered: " + invalid + ")"
+            );
         }
+
         int customerId = scanner.nextInt();
-        
+
         Customer customer = findCustomer(customerId);
+
         if (customer == null) {
-            throw new InvalidInputException("Customer not found with ID: " + customerId);
+            throw new InvalidInputException(
+                    "Customer not found with ID: " + customerId
+            );
         }
 
         viewAvailableRooms();
+
         System.out.print("Enter Room Number to Reserve: ");
+
         if (!scanner.hasNextInt()) {
             String invalid = scanner.next();
-            throw new InvalidInputException("Room Number must be numeric (You entered: " + invalid + ")");
+            throw new InvalidInputException(
+                    "Room Number must be numeric (You entered: " + invalid + ")"
+            );
         }
+
         int roomNumber = scanner.nextInt();
 
         Room room = findRoom(roomNumber);
+
         if (room == null) {
             throw new InvalidInputException("Room not found.");
         }
+
         if (!room.isAvailable()) {
             throw new InvalidInputException("Room is not available.");
         }
 
         System.out.print("Enter Number of Days: ");
+
         if (!scanner.hasNextInt()) {
             String invalid = scanner.next();
-            throw new InvalidInputException("Days must be numeric (You entered: " + invalid + ")");
+            throw new InvalidInputException(
+                    "Days must be numeric (You entered: " + invalid + ")"
+            );
         }
+
         int days = scanner.nextInt();
-        if (days <= 0) throw new InvalidInputException("Days must be positive.");
+
+        if (days <= 0) {
+            throw new InvalidInputException("Days must be positive.");
+        }
 
         Reservation reservation = new Reservation(customer, room, days);
         reservations.add(reservation);
@@ -97,7 +152,7 @@ public class ReservationService {
 
         bookingThread.start();
         invoiceThread.start();
-        
+
         try {
             bookingThread.join();
             invoiceThread.join();
@@ -105,9 +160,10 @@ public class ReservationService {
             System.out.println("Process Interrupted.");
         }
     }
-    
+
     public void viewReservationSummary() {
         System.out.println("\n--- All Reservations ---");
+
         if (reservations.isEmpty()) {
             System.out.println("No reservations found.");
         } else {
@@ -120,15 +176,21 @@ public class ReservationService {
 
     private Customer findCustomer(int id) {
         for (Customer c : customers) {
-            if (c.getId() == id) return c;
+            if (c.getId() == id) {
+                return c;
+            }
         }
+
         return null;
     }
 
     private Room findRoom(int roomNumber) {
         for (Room r : rooms) {
-            if (r.getRoomNumber() == roomNumber) return r;
+            if (r.getRoomNumber() == roomNumber) {
+                return r;
+            }
         }
+
         return null;
     }
 }

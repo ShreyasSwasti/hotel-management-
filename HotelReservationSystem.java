@@ -14,13 +14,14 @@ public class HotelReservationSystem {
     }
 
     public void showMenu() {
-        System.out.println("\n=== HOTEL ROOM RESERVATION SYSTEM ===");
-        System.out.println("1. Add Customer");
-        System.out.println("2. View Available Rooms");
-        System.out.println("3. Reserve Room");
-        System.out.println("4. View Reservation Summary");
-        System.out.println("5. Exit");
-        System.out.print("Enter Choice: ");
+       System.out.println("\n=== HOTEL ROOM RESERVATION SYSTEM ===");
+System.out.println("1. Add Customer");
+System.out.println("2. View Available Rooms");
+System.out.println("3. View Rooms By Type");
+System.out.println("4. Reserve Room");
+System.out.println("5. View Reservation Summary");
+System.out.println("6. Exit");
+System.out.print("Enter Choice: ");
     }
 
     public void handleMenuChoice(int choice) {
@@ -33,17 +34,20 @@ public class HotelReservationSystem {
                     service.viewAvailableRooms();
                     break;
                 case 3:
+    service.viewAvailableRoomsByType(scanner);
+    break;
+                case 4:
                     service.reserveRoom(scanner);
                     break;
-                case 4:
+                case 5:
                     service.viewReservationSummary();
                     break;
-                case 5:
+                case 6:
                     System.out.println("Exiting System... Thank you!");
                     System.exit(0);
                     break;
                 default:
-                    System.out.println("Invalid Choice. Please select 1-5.");
+                    System.out.println("Invalid Choice. Please select 1-6.");
             }
         } catch (InvalidInputException e) {
             System.out.println("Error: " + e.getMessage());
