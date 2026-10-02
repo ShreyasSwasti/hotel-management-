@@ -43,6 +43,12 @@ public class Customer {
 
         System.out.print("Enter Customer Phone: ");
         this.phone = scanner.next();
+
+        while (!this.phone.matches("\\d+")) {
+            System.out.println("Invalid phone number. Please enter digits only.");
+            System.out.print("Enter Customer Phone: ");
+            this.phone = scanner.next();
+        }
     }
 
     public void displayCustomerDetails() {
