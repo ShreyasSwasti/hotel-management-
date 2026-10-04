@@ -34,70 +34,174 @@ public class ReservationService {
             System.out.println("Customer added successfully!");
         } catch (Exception e) {
             System.out.println("Error adding customer: " + e.getMessage());
-            scanner.nextLine(); // clear buffer if needed
+            scanner.nextLine();
         }
     }
 
     public void viewAvailableRooms() {
         System.out.println("\nAvailable Rooms:");
         boolean found = false;
+
         for (Room room : rooms) {
             if (room.isAvailable()) {
                 System.out.println(room);
                 found = true;
             }
         }
-        if (!found) System.out.println("No rooms available.");
+
+        if (!found) {
+            System.out.println("No rooms available.");
+        }
+    }
+
+    public void searchRoomsByPrice() {
+    Scanner scanner = new Scanner(System.in);
+
+    System.out.print("Enter minimum price: ");
+    double minPrice = scanner.nextDouble();
+
+    System.out.print("Enter maximum price: ");
+    double maxPrice = scanner.nextDouble();
+
+    boolean found = false;
+
+    System.out.println("\nRooms within ₹" + minPrice + " - ₹" + maxPrice + ":");
+
+    for (Room room : rooms) {
+        if (room.getPricePerDay() >= minPrice && room.getPricePerDay() <= maxPrice) {
+            System.out.println(room);
+            found = true;
+        }
+    }
+
+    if (!found) {
+        System.out.println("No rooms found within this price range.");
+    }
+}
+
+    public void viewRoomsByType(Scanner scanner) {
+        System.out.println("\nSelect Room Type:");
+        System.out.println("1. STANDARD");
+        System.out.println("2. DELUXE");
+        System.out.println("3. SUITE");
+        System.out.print("Enter Choice: ");
+
+        if (!scanner.hasNextInt()) {
+            String invalid = scanner.next();
+            System.out.println("Invalid choice: " + invalid);
+            return;
+        }
+
+        int choice = scanner.nextInt();
+        RoomType selectedType;
+
+        switch (choice) {
+            case 1:
+                selectedType = RoomType.STANDARD;
+                break;
+
+            case 2:
+                selectedType = RoomType.DELUXE;
+                break;
+
+            case 3:
+                selectedType = RoomType.SUITE;
+                break;
+
+            default:
+                System.out.println("Invalid room type choice.");
+                return;
+        }
+
+        System.out.println("\nRooms of Type: " + selectedType);
+        boolean found = false;
+
+        for (Room room : rooms) {
+            if (room.getRoomType() == selectedType) {
+                System.out.println(room);
+                found = true;
+            }
+        }
+
+        if (!found) {
+            System.out.println("No rooms found for this type.");
+        }
     }
 
     public void reserveRoom(Scanner scanner) throws InvalidInputException {
         System.out.print("Enter Customer ID: ");
+
         if (!scanner.hasNextInt()) {
             String invalid = scanner.next();
-            throw new InvalidInputException("Customer ID must be numeric (You entered: " + invalid + ")");
+            throw new InvalidInputException(
+                "Customer ID must be numeric (You entered: " + invalid + ")"
+            );
         }
+
         int customerId = scanner.nextInt();
-        
+
         Customer customer = findCustomer(customerId);
+
         if (customer == null) {
-            throw new InvalidInputException("Customer not found with ID: " + customerId);
+            throw new InvalidInputException(
+                "Customer not found with ID: " + customerId
+            );
         }
 
         viewAvailableRooms();
+
         System.out.print("Enter Room Number to Reserve: ");
+
         if (!scanner.hasNextInt()) {
             String invalid = scanner.next();
-            throw new InvalidInputException("Room Number must be numeric (You entered: " + invalid + ")");
+            throw new InvalidInputException(
+                "Room Number must be numeric (You entered: " + invalid + ")"
+            );
         }
+
         int roomNumber = scanner.nextInt();
 
         Room room = findRoom(roomNumber);
+
         if (room == null) {
             throw new InvalidInputException("Room not found.");
         }
+
         if (!room.isAvailable()) {
             throw new InvalidInputException("Room is not available.");
         }
 
         System.out.print("Enter Number of Days: ");
+
         if (!scanner.hasNextInt()) {
             String invalid = scanner.next();
-            throw new InvalidInputException("Days must be numeric (You entered: " + invalid + ")");
+            throw new InvalidInputException(
+                "Days must be numeric (You entered: " + invalid + ")"
+            );
         }
+
         int days = scanner.nextInt();
-        if (days <= 0) throw new InvalidInputException("Days must be positive.");
+
+        if (days <= 0) {
+            throw new InvalidInputException("Days must be positive.");
+        }
 
         Reservation reservation = new Reservation(customer, room, days);
         reservations.add(reservation);
 
         // Multithreading
-        ReservationThread bookingThread = new ReservationThread(reservation);
-        InvoiceThread invoiceTask = new InvoiceThread(reservation);
-        Thread invoiceThread = new Thread(invoiceTask, "InvoiceThread");
+        ReservationThread bookingThread =
+                new ReservationThread(reservation);
+
+        InvoiceThread invoiceTask =
+                new InvoiceThread(reservation);
+
+        Thread invoiceThread =
+                new Thread(invoiceTask, "InvoiceThread");
 
         bookingThread.start();
         invoiceThread.start();
-        
+
         try {
             bookingThread.join();
             invoiceThread.join();
@@ -105,9 +209,10 @@ public class ReservationService {
             System.out.println("Process Interrupted.");
         }
     }
-    
+
     public void viewReservationSummary() {
         System.out.println("\n--- All Reservations ---");
+
         if (reservations.isEmpty()) {
             System.out.println("No reservations found.");
         } else {
@@ -120,15 +225,21 @@ public class ReservationService {
 
     private Customer findCustomer(int id) {
         for (Customer c : customers) {
-            if (c.getId() == id) return c;
+            if (c.getId() == id) {
+                return c;
+            }
         }
+
         return null;
     }
 
     private Room findRoom(int roomNumber) {
         for (Room r : rooms) {
-            if (r.getRoomNumber() == roomNumber) return r;
+            if (r.getRoomNumber() == roomNumber) {
+                return r;
+            }
         }
+
         return null;
     }
 }

@@ -13,15 +13,16 @@ public class HotelReservationSystem {
         scanner = new Scanner(System.in);
     }
 
-   public void showMenu() {
+public void showMenu() {
     System.out.println("\n========================================");
     System.out.println("       HOTEL RESERVATION SYSTEM");
     System.out.println("========================================");
     System.out.println("1. Add Customer");
     System.out.println("2. View Available Rooms");
-    System.out.println("3. Reserve Room");
-    System.out.println("4. View Reservation Summary");
-    System.out.println("5. Exit");
+    System.out.println("3. Search Rooms By Price");
+    System.out.println("4. Reserve Room");
+    System.out.println("5. View Reservation Summary");
+    System.out.println("6. Exit");
     System.out.println("========================================");
     System.out.print("Enter Choice: ");
 }
@@ -36,12 +37,15 @@ public class HotelReservationSystem {
                     service.viewAvailableRooms();
                     break;
                 case 3:
-                    service.reserveRoom(scanner);
+                    service.searchRoomsByPrice();
                     break;
                 case 4:
-                    service.viewReservationSummary();
+                    service.reserveRoom(scanner);
                     break;
                 case 5:
+                    service.viewReservationSummary();
+                    break;
+                case 6:
                     System.out.println("Exiting System... Thank you!");
                     System.exit(0);
                     break;
