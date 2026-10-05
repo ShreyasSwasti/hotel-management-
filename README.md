@@ -9,3 +9,4 @@ The system incorporates essential Java programming concepts such as classes and 
 Designed as a command-line application, HRRS provides a user-friendly, menu-driven interface that continuously interacts with the user until termination. The use of multithreading simulates parallel real-life hotel operations such as reservation confirmation and invoice generation.
 
 Overall, this project demonstrates the practical application of object-oriented programming principles to solve a real-life problem using Java, making it suitable for academic evaluation, learning purposes, and foundational software design practice.
+ build only on java
