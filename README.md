@@ -279,6 +279,8 @@ Possible future upgrades:
 - 👨‍💼 Admin dashboard
 - 📊 Reservation analytics
 - 🔎 Advanced room search and filtering
+- only terminal output but in future GUI will be updated
+- 
 
 ---
 
