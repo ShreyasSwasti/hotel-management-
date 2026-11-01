@@ -281,7 +281,4 @@ Possible future upgrades:
 - 🔎 Advanced room search and filtering
 - only terminal output but in future GUI will be updated
 - 
-
----
-
 ##
