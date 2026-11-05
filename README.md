@@ -1,9 +1,9 @@
 # 🏨 Hotel Reservation System
 
-> **A simple, console-based hotel reservation system built in Java — manage customers, explore rooms, search by price, and make reservations without the paperwork.**
+> **A Java-based hotel reservation system that brings together customer management, room searching, reservations, and a graphical dashboard — making hotel management a little easier.**
 
 ![Java](https://img.shields.io/badge/Java-17%2B-orange?style=for-the-badge&logo=openjdk)
-![Console App](https://img.shields.io/badge/Application-Console%20Based-blue?style=for-the-badge)
+![GUI](https://img.shields.io/badge/Interface-Java%20Swing-blue?style=for-the-badge&logo=java)
 ![Status](https://img.shields.io/badge/Status-In%20Development-yellow?style=for-the-badge)
 
 ---
@@ -14,25 +14,19 @@ Imagine walking into a hotel and having to manage **customers, rooms, prices, ro
 
 Messy, right? 😵‍💫
 
-This project turns that process into a simple **Java-based hotel reservation system**.
+This project aims to simplify that process through a Java-based Hotel Reservation System.
 
-The application provides a menu-driven interface where users can:
+It started as a simple console-based application and is gradually moving towards a graphical user interface (GUI).
 
-- 👤 Add and manage customers
-- 🛏️ View available rooms
-- 🔎 Filter rooms by type
-- 💰 Search rooms by price
-- 📋 Make room reservations
-- 🧾 View reservation summaries
-
-It is designed to demonstrate how a real-world hotel workflow can be implemented using **Java, object-oriented programming, services, and basic data management**.
+The project focuses on implementing real-world hotel management operations using **Java, Object-Oriented Programming, and a service-based structure**.
 
 ---
 
 ## 🚀 Features
 
 ### 👤 Customer Management
-Add customer information such as:
+
+Manage basic customer information, including:
 
 - Customer ID
 - Name
@@ -40,13 +34,14 @@ Add customer information such as:
 
 ### 🛏️ Room Management
 
-Explore available rooms and their details.
+Explore rooms and their details.
 
-You can search rooms based on:
+You can:
 
-- Room type
-- Availability
-- Price
+- View available rooms
+- Filter rooms by type
+- Check room prices
+- Monitor room availability
 
 ### 💰 Search Rooms by Price
 
@@ -67,52 +62,51 @@ Room 105 | Single | ₹2800
 
 ### 🏷️ Filter by Room Type
 
-Need a particular type of room?
-
-Choose from available room categories and quickly find matching rooms.
+Find rooms according to their available categories.
 
 ### 📅 Room Reservation
 
-Once you find the right room, you can reserve it for a customer.
+Reserve rooms for registered customers.
 
-The system keeps track of the reservation and room availability.
+The system keeps track of reservations and room availability.
 
 ### 🧾 Reservation Summary
 
-View important reservation details in one place, making it easier to keep track of bookings.
+View important reservation details and keep track of bookings.
 
 ---
 
-## 🖥️ How It Looks
+## 🖥️ Graphical User Interface (GUI)
 
-When the application starts, you'll see a simple menu:
+The project is gradually moving beyond its original console interface.
 
-```text
-========================================
-       🏨 HOTEL RESERVATION SYSTEM
-========================================
+A Java Swing dashboard has been introduced to make room management easier and more visual.
 
-1. Add Customer
-2. View Available Rooms
-3. View Rooms By Type
-4. Search Rooms By Price
-5. Reserve Room
-6. View Reservation Summary
-7. Exit
+### Dashboard Features
 
-Enter Choice:
-```
+- 📊 **Total Rooms:** Displays the total number of rooms.
+- 🟢 **Available Rooms:** Shows how many rooms are currently available.
+- 🔴 **Occupied Rooms:** Displays the number of occupied rooms.
+- 🔎 **Room Search:** Search rooms using room numbers or room types.
+- 🏷️ **Availability Filter:** Filter rooms by All Rooms, Available, or Occupied.
+- 🔄 **Refresh Rooms:** Refresh room information and dashboard statistics.
+- 🎨 **Improved Interface:** Sidebar navigation, summary cards, and a structured room table.
 
-Simple. Fast. No complicated interface.
+The dashboard uses Java Swing components such as `JFrame`, `JPanel`, `JTable`, `JLabel`, and `JButton`.
 
-Just choose an option and get things done. ⚡
+*More GUI improvements are planned as development continues.*
 
 ---
 
 ## 🏗️ Project Structure
 
+The project is organized into different packages to separate the responsibilities of the application.
+
 ```text
 hotel-management/
+│
+├── UI/
+│   └── HotelDashboard.java
 │
 ├── hotel/
 │   ├── main/
@@ -129,41 +123,48 @@ hotel-management/
 └── README.md
 ```
 
-The project follows a simple separation of responsibilities:
+*Note: The structure above represents the main source files. Actual folders may contain additional files.*
+
+### Application Structure
 
 ```text
-        ┌─────────────────────────┐
-        │  HotelReservationSystem │
-        │          Main            │
-        └────────────┬────────────┘
-                     │
-                     ▼
-        ┌─────────────────────────┐
-        │   ReservationService    │
-        │  Business Logic / Flow  │
-        └────────────┬────────────┘
-                     │
-          ┌──────────┼──────────┐
-          ▼          ▼          ▼
-      Customer     Room     Reservation
+       ┌──────────────────────────┐
+       │       User Interface     │
+       │                          │
+       │   Console / Swing GUI    │
+       └────────────┬─────────────┘
+                    │
+                    ▼
+       ┌──────────────────────────┐
+       │    ReservationService    │
+       │                          │
+       │      Business Logic      │
+       └────────────┬─────────────┘
+                    │
+          ┌─────────┼─────────┐
+          ▼         ▼         ▼
+       Customer    Room   Reservation
+        Model     Model      Model
 ```
 
 ---
 
 ## 🧠 Concepts Demonstrated
 
-This project is also a practical way to understand important Java concepts:
+This project is a practical way to understand important Java concepts:
 
 - ☕ Object-Oriented Programming
 - 📦 Classes and Objects
 - 🔐 Encapsulation
-- 🧩 Separation of responsibilities
-- 🔄 Loops and conditional statements
-- 📋 Collections
-- 🛠️ Service-layer design
-- ⌨️ Console input handling
-- ⚠️ Exception handling
-- 🔍 Searching and filtering data
+- 🧩 Separation of Responsibilities
+- 🔄 Loops and Conditional Statements
+- 📋 Java Collections
+- 🛠️ Service-Layer Design
+- ⌨️ Console Input Handling
+- ⚠️ Exception Handling
+- 🔍 Searching and Filtering Data
+- 🖥️ Java Swing GUI Development
+- 🎨 Event Handling in Swing
 
 ---
 
@@ -183,68 +184,29 @@ cd hotel-management
 
 ### 3️⃣ Compile the project
 
-```bash
-javac hotel/main/HotelReservationSystem.java
-```
+Compile the required Java source files together, ensuring that package paths and dependencies are correct.
 
-If your project contains multiple Java files, compile the required source files together.
-
-### 4️⃣ Run the application
+For example:
 
 ```bash
-java hotel.main.HotelReservationSystem
+javac -d out hotel/model/*.java hotel/service/*.java hotel/main/HotelReservationSystem.java
 ```
 
----
+### 4️⃣ Run the console application
 
-## 🎯 Example Workflow
-
-A typical session might look like this:
-
-```text
-=== HOTEL RESERVATION SYSTEM ===
-
-1. Add Customer
-2. View Available Rooms
-3. View Rooms By Type
-4. Search Rooms By Price
-5. Reserve Room
-6. View Reservation Summary
-7. Exit
-
-Enter Choice: 1
-
-Enter Customer ID: 101
-Enter Customer Name: Shreyas
-Enter Customer Phone: 523665423
-
-Customer added successfully! ✅
+```bash
+java -cp out hotel.main.HotelReservationSystem
 ```
 
-Then:
+### 5️⃣ Run the GUI dashboard
 
-```text
-Enter Choice: 4
+Compile `HotelDashboard.java` along with its dependencies, then run:
 
-Enter maximum price: 3000
-
-Rooms within your budget:
-
-Room 101 → Single → ₹2000
-Room 103 → Double → ₹2500
-Room 105 → Single → ₹2800
+```bash
+java -cp out UI.HotelDashboard
 ```
 
-Finally:
-
-```text
-Enter Choice: 5
-
-Enter Customer ID: 101
-Enter Room Number: 103
-
-Reservation successful! 🎉
-```
+*Note: These commands assume the source files and package declarations match the structure shown above.*
 
 ---
 
@@ -255,8 +217,9 @@ Reservation successful! 🎉
 | ☕ Java | Core application |
 | 🧱 OOP | Application design |
 | 📦 Java Collections | Data management |
-| ⌨️ Scanner | User input |
-| 🖥️ Console | User interface |
+| 🖥️ Java Swing | Graphical interface |
+| 🎨 AWT | GUI styling and layouts |
+| ⌨️ Scanner | Console input |
 | 🌳 Git | Version control |
 | 🐙 GitHub | Project hosting |
 
@@ -264,21 +227,43 @@ Reservation successful! 🎉
 
 ## 🔮 Future Improvements
 
-This project can grow far beyond a console application.
+There is still plenty of room to improve this project!
 
-Possible future upgrades:
+Some ideas for future development:
 
-- 🖥️ Graphical User Interface
-- 🌐 Web-based hotel booking
+- 🖥️ Complete GUI integration
+- 📅 Reservation management dashboard
+- 👤 Customer management interface
 - 🗄️ MySQL database integration
 - 🔐 User authentication
 - 💳 Payment processing
 - 📧 Booking confirmation emails
-- 📅 Check-in / check-out dates
+- 📆 Check-in and check-out management
 - 🧾 Automatic invoice generation
 - 👨‍💼 Admin dashboard
 - 📊 Reservation analytics
 - 🔎 Advanced room search and filtering
-- only terminal output but in future GUI will be updated
-- 
-##
+
+---
+
+## 📌 Project Status
+
+<badge>In Development</badge>
+
+This project is continuously evolving.
+
+It began as a console-based Java application, and the graphical interface is now being developed step by step.
+
+The goal is to gradually turn it into a more complete hotel management application while learning and improving along the way.
+
+---
+
+## 🤝 Contributions
+
+Suggestions, improvements, and feedback are always welcome!
+
+If you find something that can be improved, feel free to open an issue or suggest a feature.
+
+---
+
+**Made with ☕ Java and a lot of learning!**
