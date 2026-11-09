@@ -1,3 +1,4 @@
+
 package hotel.main;
 
 import hotel.service.ReservationService;
@@ -14,14 +15,18 @@ public class HotelReservationSystem {
     }
 
     public void showMenu() {
-       System.out.println("\n=== HOTEL ROOM RESERVATION SYSTEM ===");
-System.out.println("1. Add Customer");
-System.out.println("2. View Available Rooms");
-System.out.println("3. View Rooms By Type");
-System.out.println("4. Reserve Room");
-System.out.println("5. View Reservation Summary");
-System.out.println("6. Exit");
-System.out.print("Enter Choice: ");
+        System.out.println("\n========================================");
+        System.out.println("       HOTEL RESERVATION SYSTEM");
+        System.out.println("========================================");
+        System.out.println("1. Add Customer");
+        System.out.println("2. View Available Rooms");
+        System.out.println("3. Search Rooms By Price");
+        System.out.println("4. Reserve Room");
+        System.out.println("5. View Reservation Summary");
+        System.out.println("6. Search Customer By ID");
+        System.out.println("7. Exit");
+        System.out.println("========================================");
+        System.out.print("Enter Choice: ");
     }
 
     public void handleMenuChoice(int choice) {
@@ -30,42 +35,53 @@ System.out.print("Enter Choice: ");
                 case 1:
                     service.addCustomer(scanner);
                     break;
+
                 case 2:
                     service.viewAvailableRooms();
                     break;
+
                 case 3:
-    service.viewAvailableRoomsByType(scanner);
-    break;
+                    service.searchRoomsByPrice();
+                    break;
+
                 case 4:
                     service.reserveRoom(scanner);
                     break;
+
                 case 5:
                     service.viewReservationSummary();
                     break;
+
                 case 6:
+                    service.searchCustomer(scanner);
+                    break;
+
+                case 7:
                     System.out.println("Exiting System... Thank you!");
                     System.exit(0);
                     break;
+
                 default:
-                    System.out.println("Invalid Choice. Please select 1-6.");
+                    System.out.println("Invalid Choice. Please select 1-7.");
             }
         } catch (InvalidInputException e) {
             System.out.println("Error: " + e.getMessage());
         } catch (Exception e) {
             System.out.println("Unexpected Error: " + e.getMessage());
-            scanner.nextLine(); // Clear buffer in case of bad state
+            scanner.nextLine();
         }
     }
 
     public void start() {
         while (true) {
             showMenu();
+
             if (scanner.hasNextInt()) {
                 int choice = scanner.nextInt();
                 handleMenuChoice(choice);
             } else {
                 System.out.println("Invalid Input. Please enter a number.");
-                scanner.next(); // Consume invalid input
+                scanner.next();
             }
         }
     }
