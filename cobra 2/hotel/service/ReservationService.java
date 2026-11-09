@@ -1,3 +1,4 @@
+
 package hotel.service;
 
 import hotel.exception.InvalidInputException;
@@ -55,29 +56,30 @@ public class ReservationService {
     }
 
     public void searchRoomsByPrice() {
-    Scanner scanner = new Scanner(System.in);
+        Scanner scanner = new Scanner(System.in);
 
-    System.out.print("Enter minimum price: ");
-    double minPrice = scanner.nextDouble();
+        System.out.print("Enter minimum price: ");
+        double minPrice = scanner.nextDouble();
 
-    System.out.print("Enter maximum price: ");
-    double maxPrice = scanner.nextDouble();
+        System.out.print("Enter maximum price: ");
+        double maxPrice = scanner.nextDouble();
 
-    boolean found = false;
+        boolean found = false;
 
-    System.out.println("\nRooms within ₹" + minPrice + " - ₹" + maxPrice + ":");
+        System.out.println("\nRooms within price range " + minPrice + " - " + maxPrice + ":");
 
-    for (Room room : rooms) {
-        if (room.getPricePerDay() >= minPrice && room.getPricePerDay() <= maxPrice) {
-            System.out.println(room);
-            found = true;
+        for (Room room : rooms) {
+            if (room.getPricePerDay() >= minPrice &&
+                room.getPricePerDay() <= maxPrice) {
+                System.out.println(room);
+                found = true;
+            }
+        }
+
+        if (!found) {
+            System.out.println("No rooms found within this price range.");
         }
     }
-
-    if (!found) {
-        System.out.println("No rooms found within this price range.");
-    }
-}
 
     public void viewRoomsByType(Scanner scanner) {
         System.out.println("\nSelect Room Type:");
@@ -99,15 +101,12 @@ public class ReservationService {
             case 1:
                 selectedType = RoomType.STANDARD;
                 break;
-
             case 2:
                 selectedType = RoomType.DELUXE;
                 break;
-
             case 3:
                 selectedType = RoomType.SUITE;
                 break;
-
             default:
                 System.out.println("Invalid room type choice.");
                 return;
@@ -207,6 +206,7 @@ public class ReservationService {
             invoiceThread.join();
         } catch (InterruptedException e) {
             System.out.println("Process Interrupted.");
+            Thread.currentThread().interrupt();
         }
     }
 
@@ -231,6 +231,29 @@ public class ReservationService {
         }
 
         return null;
+    }
+
+    // NEW FEATURE: Search Customer by ID
+    public void searchCustomer(Scanner scanner) {
+        System.out.println("\n========== CUSTOMER SEARCH ==========");
+        System.out.print("Enter Customer ID: ");
+
+        if (!scanner.hasNextInt()) {
+            String invalid = scanner.next();
+            System.out.println("Invalid Customer ID: " + invalid);
+            return;
+        }
+
+        int customerId = scanner.nextInt();
+
+        Customer customer = findCustomer(customerId);
+
+        if (customer != null) {
+            System.out.println("\nCustomer Found!");
+            customer.displayCustomerDetails();
+        } else {
+            System.out.println("Customer not found with ID: " + customerId);
+        }
     }
 
     private Room findRoom(int roomNumber) {
