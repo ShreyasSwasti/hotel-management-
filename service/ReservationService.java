@@ -18,6 +18,10 @@ public class ReservationService {
         initializeRooms();
     }
 
+    public List<Room> getRooms() {
+    return new ArrayList<>(rooms);
+    }
+
     private void initializeRooms() {
         rooms.add(new Room(101, RoomType.STANDARD, 1000.0));
         rooms.add(new Room(102, RoomType.STANDARD, 1000.0));
